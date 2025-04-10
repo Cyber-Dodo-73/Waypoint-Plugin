@@ -1,0 +1,5 @@
+name: waystone
+version: '1.0.0'
+main: fr.cyberdodo.waystone.WaystonePlugin
+api-version: '1.21'
+authors: [ Dodo_Report ]
