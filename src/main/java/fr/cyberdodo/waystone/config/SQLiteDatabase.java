@@ -30,6 +30,7 @@ public class SQLiteDatabase {
 
     public void createTableIfNotExists() throws SQLException {
         try (Statement statement = connection.createStatement()) {
+            // Créer la table si elle n'existe pas
             statement.executeUpdate(
                     "CREATE TABLE IF NOT EXISTS waystones (" +
                             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -42,6 +43,18 @@ public class SQLiteDatabase {
                             "hologram_id INTEGER NOT NULL DEFAULT 0" +
                             ");"
             );
+
+            // Migration : Ajouter la colonne hologram_id si elle n'existe pas déjà
+            // Cette requête échouera silencieusement si la colonne existe déjà
+            try {
+                statement.executeUpdate("ALTER TABLE waystones ADD COLUMN hologram_id INTEGER NOT NULL DEFAULT 0");
+                plugin.getLogger().info("Colonne hologram_id ajoutée à la base de données existante.");
+            } catch (SQLException e) {
+                // La colonne existe déjà, on ignore l'erreur
+                if (!e.getMessage().contains("duplicate column name")) {
+                    throw e;
+                }
+            }
         }
     }
 

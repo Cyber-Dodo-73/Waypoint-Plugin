@@ -5,7 +5,6 @@ import fr.cyberdodo.waystone.dao.WaystoneDAO;
 import fr.cyberdodo.waystone.data.WaystoneData;
 import fr.cyberdodo.waystone.manager.WaystoneManager;
 import fr.cyberdodo.waystone.manager.WaystoneTeleportManager;
-import lombok.extern.slf4j.Slf4j;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
