@@ -28,8 +28,18 @@ public class WaystoneChatListener implements Listener {
 
         String input = event.getMessage();
         if ("annuler".equalsIgnoreCase(input)) {
-            WaystonePlaceListener.pendingWaystonePlacements.remove(player);
-            player.sendMessage("§cPose de la Waystone annulée.");
+            final WaystonePlaceListener.PendingPlace cancelled =
+                    WaystonePlaceListener.pendingWaystonePlacements.remove(player);
+
+            // Rendre l'item waystone au joueur
+            if (cancelled != null && cancelled.getItem() != null) {
+                Bukkit.getScheduler().runTask(WaystonePlugin.getInstance(), () -> {
+                    player.getInventory().addItem(cancelled.getItem());
+                    player.sendMessage("§cPose de la Waystone annulée.");
+                });
+            } else {
+                player.sendMessage("§cPose de la Waystone annulée.");
+            }
             return;
         }
 

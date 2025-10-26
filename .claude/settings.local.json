@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mvn clean package:*)",
+      "Bash(where mvn:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

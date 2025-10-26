@@ -26,8 +26,20 @@ public class HologramManager {
      * @return l'ArmorStand créé
      */
     public static ArmorStand createWaystoneHologram(int waystoneId, World world, Location location, String waystoneName) {
-        // Positionner l'hologramme au-dessus de la bannière (par exemple 1,5 blocs plus haut)
-        Location holoLocation = location.clone().add(0.5, 1.8, 0.5);
+        // Détecter si c'est une bannière murale ou au sol
+        String blockType = location.getBlock().getType().name();
+        double yOffset;
+
+        if (blockType.contains("_WALL_BANNER")) {
+            // Bannière murale : hauteur plus basse
+            yOffset = 1.2;
+        } else {
+            // Bannière au sol : hauteur plus haute
+            yOffset = 2.0;
+        }
+
+        // Positionner l'hologramme au-dessus de la bannière
+        Location holoLocation = location.clone().add(0.5, yOffset, 0.5);
         ArmorStand hologram = (ArmorStand) world.spawnEntity(holoLocation, EntityType.ARMOR_STAND);
         hologram.setVisible(false);              // rendre l'ArmorStand invisible
         hologram.setGravity(false);              // désactiver la gravité pour qu'il ne bouge pas
